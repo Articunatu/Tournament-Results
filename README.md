@@ -15,14 +15,13 @@ Or you could see what the rankings are right now, checking all the tournaments t
 
 ## Technical Overview
 
-* Framework & Language - Blazor Server App / .NET 6 / C#
-* Database - Microsoft SQL Server (Database first)
-* Cloud - Azure (both app and database will be published there)
-* Micro-ORM - Dapper, used to call queries and procedures from database
-* Object Mapping - Automapper
-* Automation Tests - MS Test
-* Style Utility - Bootstrap
-* Component Library - "SyncFusion"
+* Framework / Language: Blazor Server App / .NET 6 / C#
+* Database: Microsoft SQL Server - Database first
+* Cloud: Azure (both app and database will be published there)
+* Micro-ORM: Dapper, used to call queries and procedures from database
+* Automation Tests: MS Test
+* Style Utility: Bootstrap
+* Component Library: "SyncFusion"
 
 
 ## Technical Details
