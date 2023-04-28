@@ -21,6 +21,7 @@ Or you could see what the rankings are right now, checking all the tournaments t
 * Micro-ORM - Dapper, used to call queries and procedures from database
 * Object Mapping - Automapper
 * Automation Tests - MS Test
+* Cloud - Azure (both app and database will be published there)
 ### Client
 * Framework - Blazor Server App
 * Preprocessor - 
