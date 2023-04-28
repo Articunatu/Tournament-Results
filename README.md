@@ -16,3 +16,11 @@
 * Preprocessor - 
 * Style Utility - Bootstrap
 * Component Library - "SyncFusion"
+
+## Technical Details
+
+### Database Diagram
+### Displaying the ATP Ranking
+The view model for displaying the data for the ATP Ranking needs to make 3 separate database calls.
+As much as possible of the data filtering and searching should be done in the backend (DataAccessors and Controllers) while the code in the razor files should solely be for changing the UI and making initial data calls.
+This view was also made into a component to keep resusibility for multiple rankings.
