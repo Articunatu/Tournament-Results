@@ -19,7 +19,7 @@ Or you could see what the rankings are right now, checking all the tournaments t
 * Database: Microsoft SQL Server - Database first
 * Cloud: Azure (both app and database will be published there)
 * Micro-ORM: Dapper, used to call queries and procedures from database
-* Automation Tests: MS Test
+* Unit Tests: MS Test
 * Style Utility: Bootstrap
 * Component Library: "SyncFusion"
 
