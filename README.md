@@ -1,7 +1,7 @@
 # Tournament Results
 
 ## Intro
-
+This project was created as a Blazor Server App instead of a Blazor Web Assembly because the structure of a Web Assembly mirrors how my other hobby project is composed: (Social Media in .NET & React)[!https://github.com/Articunatu/Social-Media]
 
 ## Technical Overview
 
