@@ -1,0 +1,57 @@
+USE TournamentResultsDatabase
+
+GO
+
+CREATE OR ALTER PROCEDURE
+	AllPlayersSELECT
+AS 
+	SELECT * FROM 
+		Player
+
+GO
+
+CREATE OR ALTER PROCEDURE
+	SinglePlayerSELECT
+	@ID UNIQUEIDENTIFIER
+AS 
+	SELECT * FROM 
+		Player
+	WHERE 
+		ID = @ID
+
+GO
+
+CREATE OR ALTER PROCEDURE
+	PlayerDELETE
+	@ID UNIQUEIDENTIFIER
+AS 
+	DELETE FROM 
+		Player
+	WHERE 
+		ID = @ID
+
+GO
+
+CREATE OR ALTER PROCEDURE
+	PlayerINSERT
+	@ID UNIQUEIDENTIFIER, @Tag VARCHAR(30), @FirstName VARCHAR(30), @LastName VARCHAR(30)
+AS 
+	INSERT INTO
+		Player(ID, Tag, FirstName, LastName)
+	VALUES
+		(@ID, @Tag, @FirstName, @LastName)
+
+GO
+
+CREATE OR ALTER PROCEDURE
+	PlayerUPDATE
+	@ID UNIQUEIDENTIFIER, @Tag VARCHAR(30), @FirstName VARCHAR(30), @LastName VARCHAR(30)
+AS 
+	UPDATE 
+		Player
+	SET
+		Tag = @Tag, FirstName = @FirstName, LastName = @LastName
+	WHERE
+		ID = @ID
+
+GO

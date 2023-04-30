@@ -1,0 +1,54 @@
+﻿@*@page "/players"
+
+<PageTitle>All players</PageTitle>
+
+@using Tournament_Results.Controllers
+@using Tournament_Results.Models
+@inject IController<Player> service
+@inject NavigationManager navigation
+
+<h1>All players in the database:</h1>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>Gamertag</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in players)
+        {
+            <tr>
+                <td>@player.Tag</td>
+                <td>@player.FirstName</td>
+                <td>@player.LastName</td>
+                <button class="btn btn-primary" @onclick="(() => ReadSinglePlayer(player.ID))">
+                    <i class="oi oi-pencil"></i>
+                </button>
+            </tr>   
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="CreatePlayer">Add player</button>
+
+@code {
+    private IEnumerable<Player> players;
+
+    protected override async Task OnInitializedAsync()
+    {
+        players = await service.ReadAll();
+    }
+
+    void ReadSinglePlayer(Guid id)
+    {
+        navigation.NavigateTo($"player/{id}");
+    }
+
+    void CreatePlayer()
+    {
+        navigation.NavigateTo("/player");
+    }
+}*@

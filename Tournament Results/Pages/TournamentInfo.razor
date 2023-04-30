@@ -1,0 +1,59 @@
+﻿@page "/tournament/{TournamentID:guid}"
+
+@using Tournament_Results.Controllers
+@using Tournament_Results.Models
+@using Tournament_Results.ViewModels
+
+@inject ITournamentResultsController tournamentService
+
+<div>
+    <h3>@tournament.Title</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>PLAYER</th>
+                <th>@(pointsDisplay ? "POINTS" : "PLACING")</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var playerResult in playerResults)
+        {
+            <tr>
+                <td>@playerResult.Tag</td>
+                <td>@(pointsDisplay ? playerResult.Points : playerResult.Placing)</td>
+            </tr>
+        }
+        </tbody>
+        
+    </table>
+    <button class="btn btn-primary" onclick="ChangeResultsDisplay">
+        <p>CHANGE PLACING</p>
+    </button>
+</div>
+
+@code {
+    [Parameter]
+    public Guid TournamentID { get; set; }
+    private TournamentInfoVM tournament;
+    private IEnumerable<PlayerResultVM> playerResults;
+    private bool pointsDisplay = true;
+    private string resultText;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        tournament = await tournamentService.ReadSingleTournamentsPlayers(TournamentID);
+        playerResults = tournament.PlayerResults.OrderBy(p => p.Placing);
+        foreach (var item in playerResults)
+        {
+            if (item.Placing < 0)
+            {
+                item.Placing = -item.Placing;
+            }
+        }
+    }
+
+    public void ChangeResultsDisplay()
+    {
+        pointsDisplay = !pointsDisplay;
+    }
+}

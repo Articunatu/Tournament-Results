@@ -1,0 +1,53 @@
+﻿@page "/player/{PlayerId:guid}"
+
+@using Tournament_Results.Controllers
+@using Tournament_Results.ViewModels
+@inject IPlayerResultsController playerService
+
+<div class="">
+    <h3>@player.Tag's results</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Tournament</th>
+                <th>Placing</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var attendance in results)
+        {
+            <tr>
+                <td>@attendance.Title</td>
+                <td>@attendance.Placing</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public Guid PlayerId { get; set; }
+
+    private PlayerInfoVM playerInfo;
+    private PlayerVM player;
+    private IEnumerable<TournamentResultVM?> results;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (PlayerId != Guid.Empty)
+        {
+            playerInfo = await playerService.ReadAllPlayersTournaments(PlayerId, "2003-01-01", "2007-12-31");
+            player = playerInfo.Player;
+            results = playerInfo.TournamentResults.OrderBy(r => r.Date);
+
+            foreach (var item in results)
+            {
+                if (item.Placing < 0)
+                {
+                    item.Placing = -item.Placing;
+                }
+            }
+        }
+    }
+}
