@@ -27,7 +27,8 @@ Or you could see what the rankings are right now, checking all the tournaments t
 ## Technical Details
 
 ### Database Diagram
-There is an API for a specific eSports on Start.gg, which indentifies its tables with GUIDs as primary keys.
+There is an API for a specific eSports on Start.gg, which indentifies its tables with GUIDs as primary keys, eventually this 
+project will also use that API to read new results.
 
 ### Displaying the ATP Ranking
 The view model for displaying the data for the ATP Ranking needs to make 3 separate database calls.
