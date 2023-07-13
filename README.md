@@ -17,17 +17,17 @@ Or you could see what the rankings are right now, checking all the tournaments t
 
 * Framework / Language: Blazor Server App / .NET 6 / C#
 * Database: Microsoft SQL Server - Database first
-* Cloud: Azure (both app and database will be published there)
+* Cloud: Azure
 * Micro-ORM: Dapper, used to call queries and procedures from database
 * Unit Tests: MS Test
-* Style Utility: Bootstrap
+* Style Utility: Bootstrap, MudBlazor
 * Component Library: "SyncFusion"
 
 
 ## Technical Details
 
 ### Database Diagram
-There is an API for a specific eSports on Start.gg, which indentifies its tables with GUIDs as primary keys.
+There is an API for a specific eSports on Start.gg which indentifies its tables with GUIDs as primary keys, which is why this database shares that approach. 
 
 ### Displaying the ATP Ranking
 The view model for displaying the data for the ATP Ranking needs to make 3 separate database calls.
