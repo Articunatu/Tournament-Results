@@ -20,7 +20,7 @@ Or you could see what the rankings are right now, checking all the tournaments t
 * Cloud: Azure (both app and database will be published there)
 * Micro-ORM: Dapper, used to call queries and procedures from database
 * Unit Tests: MS Test
-* Style Utility: Bootstrap
+* Style Utility: Bootstrap, MudBlazor
 * Component Library: "SyncFusion"
 
 
