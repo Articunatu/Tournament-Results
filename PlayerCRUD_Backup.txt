@@ -1,0 +1,20 @@
+<EditForm Model="@player" OnSubmit="HandleSubmit">
+    <div>
+        <label for="tag">Tag / Nickname</label>
+        <InputText id="tag" @bind-Value="player.Tag" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="firstname">First Name</label>
+        <InputText id="firstname" @bind-Value="player.FirstName" class="form-control"></InputText>
+    </div>
+    <div>
+        <label for="lastname">Last Name</label>
+        <InputText id="lastname" @bind-Value="player.LastName" class="form-control"></InputText>
+    </div>
+    @*        <SfDropDownList TValue="string" TItem="Country" Placeholder="Select a game" DataSource="@LocalData">
+    <DropDownListFieldSettings Value="ID" Text="Text"></DropDownListFieldSettings>
+    </SfDropDownList>*@
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-danger" @onclick="DeletePlayer">Delete player</button>
+</EditForm>

@@ -2,9 +2,9 @@
 
 namespace Tournament_Results.ViewModels
 {
-    public class ATPRankingVM
+    public class RankingGridViewModel
     {
         public IEnumerable<Tournament> Tournaments { get; set; }
-        public IEnumerable<PlayerRankingVM> Players { get; set; }
+        public IEnumerable<PlayerRankingDTO> Players { get; set; }
     }
 }

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tournament Results", "Tournament Results\Tournament Results.csproj", "{A8BC6594-925D-441C-9F2E-420F40D4CD4F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartGG", "StartGG\StartGG.csproj", "{D99F55E0-6895-460D-AE58-EAAB5D3072C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentResults_Tests", "TournamentResults_Tests\TournamentResults_Tests.csproj", "{B5E4185F-A8F8-4025-8DC8-DA9D9FC62547}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A8BC6594-925D-441C-9F2E-420F40D4CD4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8BC6594-925D-441C-9F2E-420F40D4CD4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8BC6594-925D-441C-9F2E-420F40D4CD4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D99F55E0-6895-460D-AE58-EAAB5D3072C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D99F55E0-6895-460D-AE58-EAAB5D3072C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D99F55E0-6895-460D-AE58-EAAB5D3072C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D99F55E0-6895-460D-AE58-EAAB5D3072C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E4185F-A8F8-4025-8DC8-DA9D9FC62547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E4185F-A8F8-4025-8DC8-DA9D9FC62547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E4185F-A8F8-4025-8DC8-DA9D9FC62547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E4185F-A8F8-4025-8DC8-DA9D9FC62547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

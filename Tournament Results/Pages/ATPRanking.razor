@@ -1,4 +1,4 @@
-﻿@*@page "/ranking"
+﻿@page "/ranking"
 
 @using Tournament_Results.Controllers
 @using Tournament_Results.Models
@@ -6,24 +6,64 @@
 
 @inject IATPRankingController atpRankingService
 
+
+@code {
+    private IEnumerable<Tournament> tournaments;
+    private IEnumerable<PlayerRankingDTO> players;
+    private string startDate = "2006-03-01";
+    private string endDate = "2006-12-31";
+
+    private bool showPoints;
+    private string btnPointsText = "Show placings";
+    private int incrementPlacing = 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        tournaments = new List<Tournament>();
+        players = new List<PlayerRankingDTO>();
+        RankingGridViewModel ranking = await atpRankingService.ReadATPRanking(startDate, endDate);
+        tournaments = ranking.Tournaments;
+        players = ranking.Players;
+
+        // players.OrderByDescending(p => p.SumOfPoints);
+    }
+
+    private int IncrementPlacing()
+    {
+        incrementPlacing++;
+        return incrementPlacing;
+    }
+
+    private void ChangePointsDisplay()
+    {
+        showPoints = !showPoints;
+        btnPointsText = showPoints ? "Show placings" : "Show points";
+        incrementPlacing = 0;
+    }
+}
+
 <div>
     <h3>ATP Ranking</h3>
     <table>
         <thead>
             <tr>
-                <th></th>
+                <th>#</th>
                 <th>PLAYERS</th>
-                @foreach (Tournament tournament in tournaments)
+                
+                @if (tournaments != null)
                 {
-                    if (tournament.IsPremier)
+                    foreach (Tournament tournament in tournaments)
                     {
-                        <th class="major">@tournament.Title</th>
+                        if (tournament.IsPremier)
+                        {
+                            <th class="premier">@tournament.Title</th>
+                        }
+                        else
+                        {
+                            <th class="major">@tournament.Title</th>
+                        }
+                        //expand view:
                     }
-                    else
-                    {
-                        <th class="premier">@tournament.Title</th>
-                    }
-                    //expand view: 
                 }
                 <th>RANKING</th>
             </tr>
@@ -32,46 +72,21 @@
             @foreach (var player in players)
             {
                 <tr>
-                    <td>@incrementPlacing</td>
+                    <td>@IncrementPlacing()</td>
                     <td>@player.Tag</td>
                     @for (int i = 0; i < tournaments.Count(); i++)
                     {
                         <td>
-                            @player.Placings[i].Value;
+                            @player.Placings[i].Value
                         </td>
                     }
+                    <td>@player.SumOfPoints</td>
                 </tr>
             }
         </tbody>
     </table>
 
     <button class="btn-primary" @onclick="ChangePointsDisplay">
-        btnPointsText
+        @btnPointsText
     </button>
 </div>
-
-@code {
-    private IEnumerable<Tournament> tournaments;
-    private IEnumerable<PlayerRankingVM> players;
-    private string startDate = "2006-03-01";
-    private string endDate = "2006-12-31";
-
-    private bool showPoints;
-    private string btnPointsText = "Show placings";
-    private int incrementPlacing = 1;
-
-    protected override async Task OnParametersSetAsync()
-    {
-        var ranking = await atpRankingService.ReadATPRanking(startDate, endDate);
-        tournaments = ranking.Tournaments;
-        players = ranking.Players;
-
-       // players.OrderByDescending(p => p.SumOfPoints);
-    }
-
-    private void ChangePointsDisplay()
-    {
-        showPoints = !showPoints;
-        btnPointsText = showPoints ? "Show placings" : "Show points";
-    }
-}*@

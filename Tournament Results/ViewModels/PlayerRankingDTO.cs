@@ -2,7 +2,7 @@
 
 namespace Tournament_Results.ViewModels
 {
-    public class PlayerRankingVM
+    public class PlayerRankingDTO
     {
         public string Tag { get; set; }
         public List<Points> Placings { get; set; }

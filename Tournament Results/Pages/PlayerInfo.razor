@@ -29,25 +29,26 @@
     [Parameter]
     public Guid PlayerId { get; set; }
 
-    private PlayerInfoVM playerInfo;
-    private PlayerVM player;
+    private PlayerInfoViewModel playerInfo;
+    private PlayerDTO player;
     private IEnumerable<TournamentResultVM?> results;
 
     protected override async Task OnParametersSetAsync()
     {
         if (PlayerId != Guid.Empty)
         {
-            playerInfo = await playerService.ReadAllPlayersTournaments(PlayerId, "2003-01-01", "2007-12-31");
+            string presentDate = DateTime.Now.ToString("yyyy-MM-dd");
+            playerInfo = await playerService.ReadAllPlayersTournaments(PlayerId, "2003-01-01", presentDate);
             player = playerInfo.Player;
             results = playerInfo.TournamentResults.OrderBy(r => r.Date);
 
-            foreach (var item in results)
-            {
-                if (item.Placing < 0)
-                {
-                    item.Placing = -item.Placing;
-                }
-            }
+            //foreach (var item in results)
+            //{
+            //    if (item.Placing < 0)
+            //    {
+            //        item.Placing = -1*item.Placing;
+            //    }
+            //}
         }
     }
 }

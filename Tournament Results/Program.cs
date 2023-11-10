@@ -4,15 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Tournament_Results.Data;
 using Tournament_Results.Models;
 using Tournament_Results.Controllers;
-using Syncfusion.Blazor;
-using Syncfusion.Blazor.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSyncfusionBlazor();
 
 builder.Services.AddScoped<IAttendanceDataAccess, AttendanceDataAccess>();
 builder.Services.AddScoped<ITournamentDataAccess, TournamentDataAccess>();
@@ -21,10 +19,10 @@ builder.Services.AddScoped<IPointsDataAccess, PointsDataAccess>();
 
 builder.Services.AddScoped<IPlayerResultsController, PlayerResultsController>();
 builder.Services.AddScoped<ITournamentResultsController, TournamentResultsController>();
-//builder.Services.AddScoped<IATPRankingController, ATPRankingController>();
-builder.Services
-    .AddGraphQLServer()
-    .AddQueryType<Query>();
+builder.Services.AddScoped<IATPRankingController, ATPRankingController>();
+//builder.Services
+//    .AddGraphQLServer()
+//    .AddQueryType<Query>();
 
 var app = builder.Build();
 
@@ -46,6 +44,6 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-app.MapGraphQL();
+//app.MapGraphQL();
 
 app.Run();

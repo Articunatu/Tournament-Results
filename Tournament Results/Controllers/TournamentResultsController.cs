@@ -1,5 +1,4 @@
 ﻿using Tournament_Results.Data;
-using Tournament_Results.Models;
 using Tournament_Results.ViewModels;
 
 namespace Tournament_Results.Controllers
@@ -20,7 +19,7 @@ namespace Tournament_Results.Controllers
             _pointsDataAccess = pointsDataAccess;
         }
 
-        public async Task<TournamentInfoVM> ReadSingleTournamentsPlayers(Guid tournamentID)
+        public async Task<TournamentInfoViewModel> ReadSingleTournamentsPlayers(Guid tournamentID)
         {
             var tournament = await _tournamentDataAccess.ReadSingle(tournamentID);
 
@@ -28,7 +27,7 @@ namespace Tournament_Results.Controllers
             players.Select(async p => p.Points = await ReadPoints(p.Placing, tournament.IsPremier));
             players.Select(p => p.Placing = CheckIfPlacingHasNegativeValue(p.Placing));
 
-            TournamentInfoVM tournamentInfo = new(tournament.Title, players);
+            TournamentInfoViewModel tournamentInfo = new(tournament.Title, players);
             return tournamentInfo ?? throw new ArgumentException("Tihi!");
         }
 
@@ -36,7 +35,8 @@ namespace Tournament_Results.Controllers
         {
             if (isPremier)
             {
-                return await _pointsDataAccess.ReadPremierPpoints(placing);
+                var points = await _pointsDataAccess.ReadPremierPoints(placing);
+                return points.Value;
             }
             return await _pointsDataAccess.ReadMajorPoints(placing);
         }
@@ -55,6 +55,6 @@ namespace Tournament_Results.Controllers
     }
     public interface ITournamentResultsController
     {
-        Task<TournamentInfoVM> ReadSingleTournamentsPlayers(Guid tournamentID);
+        Task<TournamentInfoViewModel> ReadSingleTournamentsPlayers(Guid tournamentID);
     }
 }

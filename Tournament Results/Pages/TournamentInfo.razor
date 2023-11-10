@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>PLAYER</th>
-                <th>@(pointsDisplay ? "POINTS" : "PLACING")</th>
+                <th>@(!pointsDisplay ? "POINTS" : "PLACING")</th>
             </tr>
         </thead>
         <tbody>
@@ -20,11 +20,10 @@
         {
             <tr>
                 <td>@playerResult.Tag</td>
-                <td>@(pointsDisplay ? playerResult.Points : playerResult.Placing)</td>
+                <td>@(!pointsDisplay ? playerResult.Points : playerResult.Placing)</td>
             </tr>
         }
-        </tbody>
-        
+        </tbody>     
     </table>
     <button class="btn btn-primary" onclick="ChangeResultsDisplay">
         <p>CHANGE PLACING</p>
@@ -34,7 +33,7 @@
 @code {
     [Parameter]
     public Guid TournamentID { get; set; }
-    private TournamentInfoVM tournament;
+    private TournamentInfoViewModel tournament;
     private IEnumerable<PlayerResultVM> playerResults;
     private bool pointsDisplay = true;
     private string resultText;

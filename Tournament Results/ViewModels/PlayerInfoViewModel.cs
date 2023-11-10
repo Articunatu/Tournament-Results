@@ -1,10 +1,10 @@
 ﻿namespace Tournament_Results.ViewModels
 {
-    public class PlayerInfoVM
+    public class PlayerInfoViewModel
     {
         public IEnumerable<TournamentResultVM> TournamentResults { get; set; }
-        public PlayerVM Player { get; set; }
-        public PlayerInfoVM(IEnumerable<TournamentResultVM> tournamentResults, PlayerVM player)
+        public PlayerDTO Player { get; set; }
+        public PlayerInfoViewModel(IEnumerable<TournamentResultVM> tournamentResults, PlayerDTO player)
         {
             TournamentResults = tournamentResults;
             Player = player;

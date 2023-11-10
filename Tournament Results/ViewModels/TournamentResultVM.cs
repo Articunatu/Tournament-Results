@@ -5,5 +5,6 @@
         public string? Title { get; set; }
         public int Placing { get; set; }
         public DateTime Date { get; set; }
+        public bool IsPremier { get; set; }
     }
 }
