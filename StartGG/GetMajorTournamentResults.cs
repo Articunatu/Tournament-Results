@@ -7,29 +7,82 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text.Json;
+
 
 namespace StartGG
 {
     public static class GetMajorTournamentResults
     {
         [FunctionName("GetMajorTournamentResults")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+
+        public static async Task<string> Run(HttpRequestMessage req, ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            // Parse the request body for tournament titles
+            dynamic data = await req.Content.ReadAsAsync<object>();
+            string[] tournamentTitles = data.titles;
 
-            string name = req.Query["name"];
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+            // GraphQL query
+            string graphQLQuery = @"
+        query TournamentQuery($slug: String, $page: Int!, $perPage: Int!) {
+          tournament(slug: $slug) {
+            events {
+              name
+              standings(query: { page: $page, perPage: $perPage }) {
+                nodes {
+                  standing
+                  entrant {
+                    name
+                  }
+                }
+              }
+            }
+          }
         }
+    ";
+
+            // Create a GraphQL request payload with the tournament titles
+            string requestBody = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                query = graphQLQuery,
+                variables = new
+                {
+                    slug = "", // Placeholder for tournament slug
+                    page = 1,
+                    perPage = 3
+                }
+            });
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://api.start.gg/graphql"); // Replace with the API endpoint
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer YOUR_API_KEY"); // Replace with your API key
+
+                foreach (var title in tournamentTitles)
+                {
+                    // Update the slug in the request payload for each tournament title
+                    var request = new HttpRequestMessage(HttpMethod.Post, "");
+                    request.Content = new StringContent(requestBody.Replace("\"slug\": \"\"", $"\"slug\": \"{title}\""), System.Text.Encoding.UTF8, "application/json");
+
+                    // Send the GraphQL request
+                    HttpResponseMessage response = await client.SendAsync(request);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string result = await response.Content.ReadAsStringAsync();
+                        // Process the result (e.g., deserialize JSON and extract necessary data)
+                        log.LogInformation(result);
+                    }
+                    else
+                    {
+                        log.LogError($"Failed to retrieve data for {title}. Status code: {response.StatusCode}");
+                    }
+                }
+            }
+
+            return "Process completed";
+        }
+
     }
 }
